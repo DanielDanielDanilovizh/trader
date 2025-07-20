@@ -1,8 +1,18 @@
 import express from 'express';
 import stocks from './assets/stocks.json';
 
-import type {StocksJson } from '@auto-trader/types'; // Adjust the import path as necessary
+import type { StocksJson } from '@auto-trader/types'; // Adjust the import path as necessary
 import cors from 'cors';
+
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  host: process.env.PGHOST || 'localhost',
+  port: Number(process.env.PGPORT) || 5432,
+  user: process.env.PGUSER || 'your_db_user',
+  password: process.env.PGPASSWORD || 'your_db_password',
+  database: process.env.PGDATABASE || 'your_db_name',
+});
 
 const stocksTyped = stocks as StocksJson;
 
@@ -11,6 +21,16 @@ const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 const app = express();
 app.use(cors());
+
+app.get('/db-test', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('DB error:', err);
+    res.status(500).json({ message: 'Database error' });
+  }
+});
 
 app.get('/stocks', (req, res) => {
   try {

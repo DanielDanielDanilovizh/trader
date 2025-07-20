@@ -1,0 +1,30 @@
+<div class="w-full max-w-md mx-auto p-4">
+  <label for="stock-search" class="block mb-2 text-sm font-medium text-gray-900">
+    חפש מניה:
+  </label>
+
+  <input
+    id="stock-search"
+    type="text"
+    class="block w-full p-2 border border-gray-300 rounded shadow"
+    [(ngModel)]="searchTerm"
+    (input)="onSearchChange()"
+    name="stockSearch"
+    placeholder="הקלד סימול או שם..."
+  />
+
+  <ul *ngIf="results.length > 0" class="bg-white border border-gray-300 rounded shadow mt-2">
+    @for (stock of results; track stock.symbol) {
+      <li>
+        <button
+          type="button"
+          (click)="selectSymbol(stock.symbol)"
+          (keyup.enter)="selectSymbol(stock.symbol)"
+          class="w-full text-left px-4 py-2 cursor-pointer hover:bg-gray-100 focus:outline-none"
+        >
+          {{ stock.symbol }} - {{ stock.name }} ({{ stock.country }})
+        </button>
+      </li>
+    }
+  </ul>
+</div>

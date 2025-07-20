@@ -1,0 +1,31 @@
+<div class="max-w-md mx-auto p-4 bg-white rounded shadow">
+  <h2 class="text-xl font-semibold mb-4">הוסף אסטרטגיה חדשה</h2>
+
+  <label for="stock-search" class="block mb-2 text-sm font-medium text-gray-900">בחר מניה:</label>
+  <app-stock-selector (symbolSelected)="onSymbolSelected($event)"></app-stock-selector>
+
+  <div class="mt-4 flex items-center space-x-2">
+    <span>קנייה</span>
+    <label for="buy-toggle" class="relative inline-flex items-center cursor-pointer">
+      <input id="buy-toggle" type="checkbox" [(ngModel)]="isBuy" class="sr-only peer">
+      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-blue-600 transition"></div>
+      <div class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition peer-checked:translate-x-5"></div>
+    </label>
+    <span>מכירה</span>
+  </div>
+
+  <div class="mt-4">
+    <label for="days-input" class="block mb-2 text-sm font-medium text-gray-900">מספר ימים רצופים:</label>
+    <input id="days-input" type="number" min="1" [(ngModel)]="consecutiveDays" class="block w-full p-2 border border-gray-300 rounded shadow" />
+  </div>
+
+  <div class="mt-4">
+    <label for="condition-select" class="block mb-2 text-sm font-medium text-gray-900">תנאי:</label>
+    <select id="condition-select" [(ngModel)]="condition" class="block w-full p-2 border border-gray-300 rounded shadow">
+      <option value="higher">המחיר גבוה מהממוצע</option>
+      <option value="lower">המחיר נמוך מהממוצע</option>
+    </select>
+  </div>
+
+  <button (click)="addStrategy()" class="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">הוסף אסטרטגיה</button>
+</div>

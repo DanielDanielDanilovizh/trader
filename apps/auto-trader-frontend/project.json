@@ -20,7 +20,7 @@
             "input": "apps/auto-trader-frontend/public"
           }
         ],
-        "styles": ["apps/auto-trader-frontend/src/styles.css"]
+        "styles": ["apps/auto-trader-frontend/src/styles.scss"]
       },
       "configurations": {
         "production": {

@@ -1,0 +1,59 @@
+{
+  "name": "auto-trader-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/auto-trader-api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/auto-trader-api",
+        "format": ["cjs"],
+        "bundle": true,
+        "main": "apps/auto-trader-api/src/main.ts",
+        "tsConfig": "apps/auto-trader-api/tsconfig.app.json",
+        "assets": ["apps/auto-trader-api/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "auto-trader-api:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "auto-trader-api:build:development"
+        },
+        "production": {
+          "buildTarget": "auto-trader-api:build:production"
+        }
+      }
+    }
+  }
+}

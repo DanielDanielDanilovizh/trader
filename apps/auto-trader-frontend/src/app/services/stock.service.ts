@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable, forkJoin } from 'rxjs';
 import type { Stock } from '@auto-trader/types';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +14,7 @@ export class StockService {
     return this.http.get<Stock[]>(url);
   }
   private baseDataUrl = 'https://api.twelvedata.com';
-  private baseApiUrl = 'http://localhost:3000'; // Local API URL for development
+  private baseApiUrl = environment.apiBaseUrl; // Local API URL for development
   private apiKey = '6f74580051c64055b7a70ddd4f8748cb'; // 🔁 החלף במפתח שלך
   private http:HttpClient = inject(HttpClient);
 
